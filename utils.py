@@ -44,3 +44,10 @@ def generate_char_instance(name, level=1):
         "moves": list(c['moves']),
         "ult": c['ult']
     }
+    
+def get_bar(current, maximum):
+    """Generates a visual health bar string."""
+    length = 10
+    filled_length = int(length * current // maximum)
+    bar = '█' * filled_length + '░' * (length - filled_length)
+    return f"[{bar}] {current}/{maximum}"
