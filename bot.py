@@ -5,7 +5,7 @@ import logging
 # =====================
 # PATH FIXING
 # =====================
-# This ensures Python can find config.py, database.py, etc., on Stackhost
+# This ensures Python can find config.py, database.py, and the plugins folder
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from telegram.ext import ApplicationBuilder
@@ -16,10 +16,11 @@ from loader import load_plugins
 # =====================
 # LOGGING SETUP
 # =====================
+# We use sys.stdout so logs appear instantly in the Stackhost console
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     level=logging.INFO,
-    stream=sys.stdout  # Force logs to show in Stackhost console
+    stream=sys.stdout
 )
 logger = logging.getLogger(__name__)
 
@@ -28,8 +29,7 @@ logger = logging.getLogger(__name__)
 # =====================
 async def post_init(application):
     """
-    This function runs once when the bot starts.
-    It uploads the command list to Telegram so they appear in the menu.
+    Registers the command list with Telegram's servers so they appear in the UI.
     """
     commands = [
         BotCommand("start", "Start your pirate journey"),
@@ -52,18 +52,28 @@ async def post_init(application):
 if __name__ == "__main__":
     print("--- PIRATE BOT BOOTING UP ---")
     
+    # Check if Config is actually receiving the Token
     if not Config.BOT_TOKEN:
-        logger.error("❌ Error: BOT_TOKEN is missing! Check your Stackhost environment variables.")
+        logger.error("❌ CRITICAL: BOT_TOKEN is None! Check Stackhost Env Variables.")
         sys.exit(1)
+    
+    logger.info(f"Connecting to Telegram with token prefix: {Config.BOT_TOKEN[:10]}...")
 
-    # Initialize the Application
-    application = ApplicationBuilder().token(Config.BOT_TOKEN).post_init(post_init).build()
+    # Initialize Application
+    application = (
+        ApplicationBuilder()
+        .token(Config.BOT_TOKEN)
+        .post_init(post_init)
+        .build()
+    )
 
-    # Automatically load all files from the /plugins folder
+    # Automatically load all modules in the /plugins folder
     try:
         load_plugins(application)
     except Exception as e:
-        logger.error(f"❌ Failed to load plugins: {e}")
+        logger.error(f"❌ Plugin Loading Error: {e}")
 
     logger.info("🏴‍☠️ Pirate Bot is modular and sailing!...")
+    
+    # Start Polling
     application.run_polling()
