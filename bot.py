@@ -1,3 +1,10 @@
+import sys
+import logging
+
+# Force logs to show up in Stackhost immediately
+logging.basicConfig(level=logging.INFO, stream=sys.stdout)
+print("--- PIRATE BOT BOOTING UP ---")
+
 import logging
 from telegram.ext import ApplicationBuilder, CallbackQueryHandler
 from config import Config
