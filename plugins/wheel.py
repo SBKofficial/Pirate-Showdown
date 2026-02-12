@@ -11,6 +11,7 @@ async def wheel_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
         [InlineKeyboardButton("Character Wheel 👤", callback_data="char_wheel")],
         [InlineKeyboardButton("Resource Wheel 💎", callback_data="res_wheel")]
     ]
+    # Uses the correct key from your Media_assets.json
     await update.message.reply_video(MEDIA["VIDEOS"]["WHEEL"], caption=desc, reply_markup=InlineKeyboardMarkup(kb))
 
 async def wheel_options(query, type_name):
@@ -26,8 +27,7 @@ async def wheel_options(query, type_name):
     kb = [
         [InlineKeyboardButton("1x Pull", callback_data=data_c1), 
          InlineKeyboardButton("5x Pull", callback_data=data_c5)],
-        [InlineKeyboardButton("Back", callback_data="wheel_cancel"), 
-         InlineKeyboardButton("Probability", callback_data="wheel_prob")]
+        [InlineKeyboardButton("Back", callback_data="wheel_cancel")]
     ]
     await query.edit_message_media(InputMediaVideo(MEDIA["VIDEOS"]["WHEEL"], caption=desc), reply_markup=InlineKeyboardMarkup(kb))
 
@@ -37,7 +37,7 @@ async def handle_wheel(query, p, count, wheel_type):
     cost = 150 if count == 1 else 500 if wheel_type == "Character" else 100 if count == 1 else 400
 
     if p.get("clovers", 0) < cost:
-        await query.answer("Not enough 🍀 Clovers!", show_alert=True)
+        await query.answer("❌ Not enough Clovers!", show_alert=True)
         return
 
     p["clovers"] -= cost
@@ -47,6 +47,7 @@ async def handle_wheel(query, p, count, wheel_type):
     if wheel_type == "Character":
         for _ in range(count):
             roll = random.random()
+            # Logic for Legendary Summons using your specific Video IDs
             if roll < 0.02:
                 res = "Yamato"
                 special_anim = MEDIA["VIDEOS"]["YAMATO_SUMMON"]
@@ -58,39 +59,37 @@ async def handle_wheel(query, p, count, wheel_type):
                 res = random.choice(others)
 
             char_data = DATA["CHARACTERS"][res]
-            rarity_prefix = "🟨 " if "Legendary" in char_data['rarity'] else "🟦 " if "Rare" in char_data['rarity'] else "⬜️ "
+            rarity_icon = "🟨" if "Legendary" in char_data['rarity'] else "🟦" if "Rare" in char_data['rarity'] else "⬜️"
 
-            existing = next((c for c in p["characters"] if c["name"] == res), None)
+            # Check if player already has this pirate to increase level
+            existing = next((c for c in p.get("characters", []) if c["name"] == res), None)
             if existing:
                 existing["level"] = existing.get("level", 1) + 1
-                results.append(f"{rarity_prefix}{res} (Lv.{existing['level']})")
+                results.append(f"{rarity_icon} {res} (Lv.{existing['level']})")
             else:
+                if "characters" not in p: p["characters"] = []
                 p["characters"].append(generate_char_instance(res))
-                results.append(f"{rarity_prefix}{res} (New!)")
+                results.append(f"{rarity_icon} {res} (New!)")
     else:
+        # Resource Wheel rewards (Clovers, Berries, Fruits)
         for _ in range(count):
             roll = random.random()
             if roll < 0.05:
-                fruit_name = random.choice(list(DATA["DEVIL_FRUITS"].keys()))
-                p.setdefault("fruits", []).append(fruit_name)
-                results.append(f"🍎 {fruit_name} (NEW!)")
-            elif roll < 0.15:
-                clovers = random.randint(10, 50)
-                p['clovers'] += clovers
-                results.append(f"🍀 {clovers} Clovers")
+                fruit = random.choice(list(DATA["DEVIL_FRUITS"].keys()))
+                p.setdefault("fruits", []).append(fruit)
+                results.append(f"🍎 {fruit} (NEW!)")
             else:
                 berries = random.randint(5000, 15000)
-                p['berries'] += berries
+                p['berries'] = p.get('berries', 0) + berries
                 results.append(f"🍇 {berries} Berries")
 
     save_player(uid, p)
     res_text = f"🎰 **{wheel_type.upper()} RESULTS**:\n\n" + "\n".join(results)
     final_anim = special_anim if special_anim else MEDIA["VIDEOS"]["SUMMON_ANIM"]
     
-    await query.edit_message_media(InputMediaVideo(final_anim, caption=res_text), reply_markup=None)
+    await query.edit_message_media(InputMediaVideo(final_anim, caption=res_text))
 
 async def wheel_callback_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    """Routes callback data for the wheel system."""
     query = update.callback_query
     data = query.data
     p = get_player(query.from_user.id)
@@ -98,12 +97,11 @@ async def wheel_callback_handler(update: Update, context: ContextTypes.DEFAULT_T
     if data == "char_wheel": await wheel_options(query, "Character")
     elif data == "res_wheel": await wheel_options(query, "Resource")
     elif data == "wheel_cancel": await query.message.delete()
-    elif data == "wheel_prob":
-        await query.answer("📊 PROBABILITIES\nYamato: 2%\nKid: 2%\nFruits: 5%\nOthers: Balanced", show_alert=True)
     elif data.startswith("wheel_"):
         parts = data.split("_")
+        # Structure: wheel_[count]_[type]
         await handle_wheel(query, p, int(parts[1]), parts[2])
 
 def register(application):
     application.add_handler(CommandHandler("wheel", wheel_cmd))
-    application.add_handler(CallbackQueryHandler(wheel_callback_handler, pattern="^(char_wheel|res_wheel|wheel_.*)"))
+    application.add_handler(CallbackQueryHandler(wheel_callback_handler, pattern="^(char_wheel|res_wheel|wheel_.*|wheel_cancel)"))
