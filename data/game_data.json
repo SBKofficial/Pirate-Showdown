@@ -1,31 +1,108 @@
 {
   "CHARACTERS": {
-    "Alvida": {"rarity": "Common", "class": "Tank🛡", "hp": 600, "atk_min": 22, "atk_max": 22, "def": 30, "spe": 30, "moves": ["Kanabo smash", "Slip Slip punch"], "ult": "Sube sube no mi"},
-    "Chopper": {"rarity": "Rare", "class": "Healer🧚‍♂", "hp": 700, "atk_min": 30, "atk_max": 35, "def": 40, "spe": 25, "moves": ["Heavy gong", "Kung fu point"], "ult": "Kokutei Roseo Metal"},
-    "Arlong": {"rarity": "Rare", "class": "Damage dealer⚔", "hp": 660, "atk_min": 40, "atk_max": 45, "def": 30, "spe": 35, "moves": ["Shark teeth", "Shark on dart"], "ult": "Kiribachi"},
-    "Koby": {"rarity": "Common", "class": "Assassin 🥷", "hp": 550, "atk_min": 25, "atk_max": 25, "def": 20, "spe": 35, "moves": ["Kamisoro", "Tempest Kick"], "ult": "Honesty impact"},
-    "Usopp": {"rarity": "Rare", "class": "Healer 🧚‍♂", "hp": 650, "atk_min": 35, "atk_max": 40, "def": 40, "spe": 30, "moves": ["Skull Bomb grass", "Impact wolf"], "ult": "Usopp hammer"},
-    "Buggy": {"rarity": "Rare", "class": "Damage dealer ⚔", "hp": 620, "atk_min": 40, "atk_max": 45, "def": 25, "spe": 35, "moves": ["Chop Chop canon", "Chop Chop buzzsaw"], "ult": "Bara Bara festival"},
-    "Helmeppo": {"rarity": "Rare", "class": "Assassin 🥷", "hp": 680, "atk_min": 35, "atk_max": 35, "def": 30, "spe": 45, "moves": ["Sword swing", "Dual Kukri"], "ult": "Firey morale"},
-    "Nami": {"rarity": "Rare", "class": "Support💪", "hp": 600, "atk_min": 25, "atk_max": 30, "def": 35, "spe": 25, "moves": ["Thunderbolt Tempo", "Swing Arm"], "ult": "Zeus breeze tempo"},
-    "Yamato": {"rarity": "Legendary", "class": "Assassin", "hp": 900, "atk_min": 50, "atk_max": 60, "def": 60, "spe": 50, "moves": ["Namuji Hyoga", "Namuji glacier fang"], "ult": "Thunder Bagua"},
-    "Eustass Kid": {"rarity": "Legendary", "class": "Damage dealer⚔", "hp": 850, "atk_min": 60, "atk_max": 70, "def": 65, "spe": 40, "moves": ["Riperu", "Punk Gibson"], "ult": "Damned Punk"}
+    "Alvida": {"rarity": "Common⬜️", "class": "Tank🛡", "hp": 600, "atk_min": 22, "atk_max": 22, "def": 30, "spe": 30, "moves": ["Kanabo smash", "Slip Slip punch"], "ult": "Sube sube no mi"},
+    "Chopper": {"rarity": "Rare🟦", "class": "Healer🧚‍♂", "hp": 700, "atk_min": 30, "atk_max": 35, "def": 40, "spe": 25, "moves": ["Heavy gong", "Kung fu point"], "ult": "Kokutei Roseo Metal"},
+    "Arlong": {"rarity": "Rare🟦", "class": "Damage dealer⚔", "hp": 660, "atk_min": 40, "atk_max": 45, "def": 30, "spe": 35, "moves": ["Shark teeth", "Shark on dart"], "ult": "Kiribachi"},
+    "Koby": {"rarity": "Common⬜️", "class": "Assassin 🥷", "hp": 550, "atk_min": 25, "atk_max": 25, "def": 20, "spe": 35, "moves": ["Kamisoro", "Tempest Kick"], "ult": "Honesty impact"},
+    "Usopp": {"rarity": "Rare🟦", "class": "Healer 🧚‍♂", "hp": 650, "atk_min": 35, "atk_max": 40, "def": 40, "spe": 30, "moves": ["Skull Bomb grass", "Impact wolf"], "ult": "Usopp hammer"},
+    "Buggy": {"rarity": "Rare🟦", "class": "Damage dealer ⚔", "hp": 620, "atk_min": 40, "atk_max": 45, "def": 25, "spe": 35, "moves": ["Chop Chop canon", "Chop Chop buzzsaw"], "ult": "Bara Bara festival"},
+    "Helmeppo": {"rarity": "Rare🟦", "class": "Assassin 🥷", "hp": 680, "atk_min": 35, "atk_max": 35, "def": 30, "spe": 45, "moves": ["Sword swing", "Dual Kukri"], "ult": "Firey morale"},
+    "Nami": {"rarity": "Rare🟦", "class": "Support💪", "hp": 600, "atk_min": 25, "atk_max": 30, "def": 35, "spe": 25, "moves": ["Thunderbolt Tempo", "Swing Arm"], "ult": "Zeus breeze tempo"},
+    "Yamato": {"rarity": "Legendary🟨", "class": "Assassin", "hp": 900, "atk_min": 50, "atk_max": 60, "def": 60, "spe": 50, "moves": ["Namuji Hyoga", "Namuji glacier fang"], "ult": "Thunder Bagua"},
+    "Eustass Kid": {"rarity": "Legendary🟨", "class": "Damage dealer⚔", "hp": 850, "atk_min": 60, "atk_max": 70, "def": 65, "spe": 40, "moves": ["Riperu", "Punk Gibson"], "ult": "Damned Punk"}
   },
-  "WEAPONS": {
-    "Dual Katana": {"rarity": "⭐️", "atk_range": "35-40", "atk_val": 45, "crit": "10%", "acc": "98%", "spec": "Dual slash", "lvl": 1, "cost": 10000, "img": "AgACAgUAAyEFAATl0UgqAAIZt2mEOqRXXmoQl-ulHSOIrVWLQjzoAAJUFmsbMx4hVLLn3TFeaW8CAQADAgADeAADOAQ"},
-    "Triple Katana": {"rarity": "⭐️", "atk_range": "45-50", "atk_val": 55, "crit": "10%", "acc": "98%", "spec": "Triple Tornado", "lvl": 1, "cost": 20000, "img": "AgACAgUAAyEFAATl0UgqAAIZuWmEOqlKixV19PQIvi96-GuoPHIKAAJWFmsbMx4hVHbg-8QGvEdRAQADAgADeAADOAQ"},
-    "Shark Saw": {"rarity": "⭐️", "atk_range": "50-55", "atk_val": 60, "crit": "15%", "acc": "98%", "spec": "Shark resonance", "lvl": 1, "cost": 25000, "img": "AgACAgUAAyEFAATl0UgqAAIZu2mEOq10xpnpB49zbKaEg-j40GqKAAJXFmsbMx4hVFAid74FSZU-AQADAgADeAADOAQ"},
-    "Green Blade": {"rarity": "⭐️", "atk_range": "60-70", "atk_val": 75, "crit": "25%", "acc": "98%", "spec": "Green slash", "lvl": 5, "cost": 45000, "img": "AgACAgUAAyEFAATl0UgqAAIZw2mEOrMJjjEtehNfXfiSBoJxMCBiAAJYFmsbMx4hVIch9ahbbQQMAQADAgADeQADOAQ"},
-    "Magma Dagger": {"rarity": "⭐️", "atk_range": "80-90", "atk_val": 100, "crit": "25%", "acc": "95%", "spec": "Magma Force", "lvl": 15, "cost": 65000, "img": "AgACAgUAAyEFAATl0UgqAAIZ7WmEOry82XEfPl1oUYc0_KU4djqAAAJZFmsbMx4hVGmQ1rgUOcjsAQADAgADeQADOAQ"},
-    "Azure Needle": {"rarity": "⭐️⭐️", "atk_range": "100-110", "atk_val": 125, "crit": "30%", "acc": "95%", "spec": "Azure Counter", "lvl": 30, "cost": 70000, "img": "AgACAgUAAyEFAATl0UgqAAIaAAFphDzjTunksxUIOZYWj3FlV9BURwACWhZrGzMeIVQ0u2UqGs_0JgEAAwIAA3kAAzgE"},
-    "Forest Blade": {"rarity": "⭐️⭐️", "atk_range": "130-150", "atk_val": 160, "crit": "35%", "acc": "95%", "spec": "Forest god slash", "lvl": 30, "cost": 85000, "img": "AgACAgUAAyEFAATl0UgqAAIaFWmEPQJkm-U2-AlHDexL0Ke8vLYpAAJcFmsbMx4hVCdm7R62bN3iAQADAgADeQADOAQ"}
+  "MOVES": {
+    "Kanabo smash": {"dmg": 50}, "Slip Slip punch": {"dmg": 55}, "Sube sube no mi": {"dmg": 60, "effect": "def_buff_10"},
+    "Heavy gong": {"dmg": 45}, "Kung fu point": {"dmg": 45}, "Kokutei Roseo Metal": {"dmg": 70, "effect": "team_heal_50"},
+    "Shark teeth": {"dmg": 65}, "Shark on dart": {"dmg": 70}, "Kiribachi": {"dmg": 85, "effect": "atk_buff_15_2"},
+    "Kamisoro": {"dmg": 40}, "Tempest Kick": {"dmg": 50}, "Honesty impact": {"dmg": 70, "effect": "dodge_30"},
+    "Skull Bomb grass": {"dmg": 40}, "Impact wolf": {"dmg": 45}, "Usopp hammer": {"dmg": 75, "effect": "usopp_ult"},
+    "Chop Chop canon": {"dmg": 60}, "Chop Chop buzzsaw": {"dmg": 65}, "Bara Bara festival": {"dmg": 80, "effect": "team_atk_5"},
+    "Sword swing": {"dmg": 50}, "Dual Kukri": {"dmg": 55}, "Firey morale": {"dmg": 70, "effect": "helmeppo_ult"},
+    "Thunderbolt Tempo": {"dmg": 50}, "Swing Arm": {"dmg": 40}, "Zeus breeze tempo": {"dmg": 70, "effect": "stun_1"},
+    "Namuji Hyoga": {"dmg": 80}, "Namuji glacier fang": {"dmg": 75}, "Thunder Bagua": {"dmg": 130, "effect": "yamato_ult"},
+    "Riperu": {"dmg": 70}, "Punk Gibson": {"dmg": 80}, "Damned Punk": {"dmg": 145, "effect": "kid_ult"},
+    "Strike": {"dmg": 30}, "Bash": {"dmg": 35}, "Special Beam": {"dmg": 45}, "Quick Slash": {"dmg": 35}, "Heavy Blow": {"dmg": 40},
+    "Dual slash": {"dmg": 45}, "Triple Tornado": {"dmg": 55}, "Shark resonance": {"dmg": 60}, "Green slash": {"dmg": 75},
+    "Magma Force": {"dmg": 100}, "Azure Counter": {"dmg": 125}, "Forest god slash": {"dmg": 160}
+  },
+  "EFFECT_DESCRIPTIONS": {
+    "Alvida": "Increases defense by 10%.",
+    "Chopper": "deals 70 damage and increases every teammate and himself health❤️ by 50 hp.",
+    "Arlong": "Deals 85 damage. Increase his attack ⚔by 15% for 2 moves.",
+    "Koby": "Deals 70 Damage and increases his chance to dodge next move by 30%.",
+    "Usopp": "Deals 75 damage and reduced enemy Defense 🛡by 5%. And heals himself hy 25 Hp for 2 moves .",
+    "Buggy": "Deals 80 damage increase all teamates attack⚔ by 5%.",
+    "Helmeppo": "Deals 70 Damage and increases his chance to dodge next move by 50%. Increases his teamates speed⚡️by 10%.",
+    "Nami": "Deals 70 Damage and stuns💤 enemy for 1 round.",
+    "Yamato": "Deals 130 damage. Increases her chances of dodge by 50%. For 2 rounds her attack⚔ increases by 10%. Defense 🛡increases by 15%.",
+    "Eustass Kid": "Deals 145 Damage. For 2 rounds Kid increases his attack by 25%. Speed increased by 10%."
   },
   "DEVIL_FRUITS": {
-    "Sand Sand Fruit": {"atk_buff": 20, "def_buff": 35, "hp_buff": 0, "cost": 15000, "lvl": 7, "img": "AgACAgUAAyEFAATl0UgqAAIdCGmEyAP0N7D46htpr52YyW4gk59hAAIuEmsbMx4pVO7ttlPyKjeNAQADAgADeQADOAQ"},
-    "Shadow Shadow Fruit": {"atk_buff": 31, "def_buff": 17, "hp_buff": 0, "cost": 15000, "lvl": 4, "img": "AgACAgUAAyEFAATl0UgqAAIdFWmE7Liugh6UWYR8q5tA_sHCPNsdAAIvEmsbMx4pVEpP7t_9_F97AQADAgADeAADOAQ"},
-    "Barrier Barrier Fruit": {"atk_buff": 7, "def_buff": 30, "hp_buff": 0, "cost": 10000, "lvl": 1, "img": "AgACAgUAAyEFAATl0UgqAAIeemmE7IhCyP3Xv5z0MWur0XyybbDSAAJxEmsbMx4pVCqTaJaSZ0K8AQADAgADeQADOAQ"},
-    "Munch Munch Fruit": {"atk_buff": 17, "def_buff": 0, "hp_buff": 35, "cost": 10000, "lvl": 1, "img": "AgACAgUAAyEFAATl0UgqAAIemWmE90tMDiO7XXEHktwrz9tFu_V9AALLEmsbMx4pVCKf_jfVPhlrAQADAgADeQADOAQ"},
-    "Gum Gum Fruit": {"atk_buff": 27, "def_buff": 15, "hp_buff": 0, "cost": 10000, "lvl": 1, "img": "AgACAgUAAyEFAATl0UgqAAIecmmE7I5fGowjyIYU7_df7Dwxf1UyAAJkEmsbMx4pVHs0wiHNY7NzAQADAgADeQADOAQ"}
+    "Sand Sand Fruit": {
+        "text": "Sand sand fruit \n\nRarity:⭐️\n\nDevil fruit info: This fruit allow user to manipulate, control and create sand at will. \n\n     Fruits stats\nDefense:32-38\nDamage: 15-25\nCritical chance:25%\nAccuracy:94%\nRank requirement: 7",
+        "atk_buff": 20, "def_buff": 35, "hp_buff": 0, "cost": 15000, "lvl": 7
+    },
+    "Shadow Shadow Fruit": {
+        "text": "Shadow shadow fruit \n\nRarity:⭐️\n\nDevil fruit info: This fruit allows users to manipulate, manifest, and steal shadow and turn into corpse. \n\n     Fruits stats\nDamage: 30-32\nDefense: 15-20\nCritical chance: 20%\nAccuracy: 91%\nRank requirement: 4",
+        "atk_buff": 31, "def_buff": 17, "hp_buff": 0, "cost": 15000, "lvl": 4
+    },
+    "Barrier Barrier Fruit": {
+        "text": "Barrier barrier fruit \n\nRarity:⭐️\n\nDevil fruit info: This fruit allows consumer to turn any weapon or surrounding into strong barrier. \n\n     Fruits stats\nDefense: 25-35\nAttack:5-10\nCritical chance: 15%\nAccuracy: 98%\nRank requirement:1",
+        "atk_buff": 7, "def_buff": 30, "hp_buff": 0, "cost": 10000, "lvl": 1
+    },
+    "Munch Munch Fruit": {
+        "text": "Munch munch fruit \n\nRarity:⭐️\n\nDevil fruit info: This fruit allows consume any substance and incorporate into their body. \n\n     Fruits stats\nHP: 30-40\nDamage: 15-20\nCritical chance: 12%\nAccuracy: 95%\nRank requirement: 1",
+        "atk_buff": 17, "def_buff": 0, "hp_buff": 35, "cost": 10000, "lvl": 1
+    },
+    "Gum Gum Fruit": {
+        "text": "Gum gum fruit\n\nRarity:⭐️\n\nDevil fruit info: This fruit turns consumer's body into rubber, allowing them to stretch.\n\n     Fruits stats\nDamage: 25-30\nDefense: 10-20\nCritical chance: 10%\nAccuracy: 90%\nRank Requirement: 1",
+        "atk_buff": 27, "def_buff": 15, "hp_buff": 0, "cost": 10000, "lvl": 1
+    }
+  },
+  "WEAPONS": {
+    "Dual Katana": {
+        "rarity": "⭐️", "atk_range": "35-40", "atk_val": 45, "crit": "10%", "acc": "98%", "spec": "Dual slash", "lvl": 1, "cost": 10000
+    },
+    "Triple Katana": {
+        "rarity": "⭐️", "atk_range": "45-50", "atk_val": 55, "crit": "10%", "acc": "98%", "spec": "Triple Tornado", "lvl": 1, "cost": 20000
+    },
+    "Shark Saw": {
+        "rarity": "⭐️", "atk_range": "50-55", "atk_val": 60, "crit": "15%", "acc": "98%", "spec": "Shark resonance", "lvl": 1, "cost": 25000
+    },
+    "Green Blade": {
+        "rarity": "⭐️", "atk_range": "60-70", "atk_val": 75, "crit": "25%", "acc": "98%", "spec": "Green slash", "lvl": 5, "cost": 45000
+    },
+    "Magma Dagger": {
+        "rarity": "⭐️", "atk_range": "80-90", "atk_val": 100, "crit": "25%", "acc": "95%", "spec": "Magma Force", "lvl": 15, "cost": 65000
+    },
+    "Azure Needle": {
+        "rarity": "⭐️⭐️", "atk_range": "100-110", "atk_val": 125, "crit": "30%", "acc": "95%", "spec": "Azure Counter", "lvl": 30, "cost": 70000
+    },
+    "Forest Blade": {
+        "rarity": "⭐️⭐️", "atk_range": "130-150", "atk_val": 160, "crit": "35%", "acc": "95%", "spec": "Forest god slash", "lvl": 30, "cost": 85000
+    }
+  },
+  "BOSS_MISSIONS": {
+    "15": {"name": "Arlong", "mission_num": 1},
+    "30": {"name": "Piccolo", "mission_num": 2},
+    "50": {"name": "Rui", "mission_num": 3},
+    "100": {"name": "Crocodile", "mission_num": 4},
+    "150": {"name": "Itachi Uchiha", "mission_num": 5},
+    "175": {"name": "Feitan Portan", "mission_num": 6},
+    "200": {"name": "Cell", "mission_num": 7},
+    "250": {"name": "Stark", "mission_num": 8},
+    "300": {"name": "Broly", "mission_num": 9},
+    "350": {"name": "Frieza", "mission_num": 10},
+    "375": {"name": "Daki", "mission_num": 11},
+    "400": {"name": "Gyutaro", "mission_num": 12},
+    "450": {"name": "Dabi", "mission_num": 13},
+    "475": {"name": "Blackbeard", "mission_num": 14},
+    "500": {"name": "Kakashi Hatake", "mission_num": 15},
+    "550": {"name": "Geto", "mission_num": 16},
+    "600": {"name": "Frieren", "mission_num": 17},
+    "650": {"name": "Black Goku", "mission_num": 18},
+    "700": {"name": "Mahito", "mission_num": 19},
+    "750": {"name": "Yuji Itadori", "mission_num": 20}
   }
 }
- 
