@@ -1,21 +1,37 @@
 import logging
+import urllib.parse
 from pymongo import MongoClient
 from config import Config
 
-# Setup logging to see connection status in Stackhost logs
+# Setup logging
 logger = logging.getLogger(__name__)
 
-try:
-    # Initialize client with a 5-second timeout
-    mongo_client = MongoClient(Config.MONGO_URI, serverSelectionTimeoutMS=5000)
-    # The 'ping' command forces a connection check immediately
-    mongo_client.admin.command('ping')
-    db = mongo_client["pirate_v3"]
-    players_collection = db["players"]
-    logger.info("✅ Connected to MongoDB Atlas successfully.")
-except Exception as e:
-    logger.error(f"❌ Failed to connect to MongoDB: {e}")
-    players_collection = None
+def get_db_connection():
+    try:
+        # 1. URL Encode the credentials to handle the '??' in your password
+        # This prevents the "Port contains non-digit characters" error
+        user = "Znxpirateshowdown"
+        password = urllib.parse.quote_plus("1234Qwer??") 
+        cluster = "znx.idxdehh.mongodb.net"
+        app_name = "Znx"
+        
+        # 2. Construct the safe URI
+        uri = f"mongodb+srv://{user}:{password}@{cluster}/?appName={app_name}"
+
+        # 3. Initialize the client
+        client = MongoClient(uri, serverSelectionTimeoutMS=5000)
+        
+        # 4. Verify the connection
+        client.admin.command('ping')
+        logger.info("✅ Connected to MongoDB Atlas successfully.")
+        return client["pirate_v3"]
+    except Exception as e:
+        logger.error(f"❌ Failed to connect to MongoDB: {e}")
+        return None
+
+# Global collection objects
+db = get_db_connection()
+players_collection = db["players"] if db is not None else None
 
 def load_player(user_id):
     if players_collection is None: return None
@@ -23,23 +39,15 @@ def load_player(user_id):
 
 def save_player(user_id, data):
     if players_collection is None: return
-    # Remove _id if it exists to prevent ImmutableField errors
     if '_id' in data: del data['_id']
     players_collection.update_one({"user_id": str(user_id)}, {"$set": data}, upsert=True)
 
 def get_player(user_id, name="Pirate"):
     p = load_player(user_id)
     if not p:
-        # Default starting template for new players
         p = {
-            "user_id": str(user_id), 
-            "name": name, 
-            "level": 1, 
-            "exp": 0, 
-            "berries": 1000, 
-            "clovers": 0, 
-            "team": [], 
-            "characters": []
+            "user_id": str(user_id), "name": name, "level": 1, "exp": 0, 
+            "berries": 1000, "clovers": 0, "team": [], "characters": []
         }
         save_player(user_id, p)
     return p
