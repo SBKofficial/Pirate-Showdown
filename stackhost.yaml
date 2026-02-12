@@ -9,7 +9,7 @@ commands:
   package: ""
   build:
     - "pip install -r requirements.txt"
-  start: "PYTHONPATH=$PYTHONPATH:. python bot.py"
+  start: "python bot.py"
 
 
 repository:
