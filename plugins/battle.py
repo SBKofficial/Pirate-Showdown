@@ -1,67 +1,45 @@
-import time
 import random
+import logging
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, InputMediaVideo
 from telegram.ext import CallbackQueryHandler, ContextTypes
-from database import get_player, save_player
-from utils import DATA, MEDIA, get_bar, generate_char_instance, check_player_levelup
+from utils import DATA, MEDIA, get_bar
 
-battles = {}
+logger = logging.getLogger(__name__)
 
-async def run_battle_turn(query, bid, move_name=None):
-    b = battles.get(bid)
-    if not b: return
-
-    # Character logic
-    p1_char = b['p1_team'][b['p1_idx']]
-    p2_char = b['p2_team'][b['p2_idx']]
-    
-    attacker, defender = (p1_char, p2_char) if b['turn'] == "p1" else (p2_char, p1_char)
-
-    if move_name:
-        # [span_14](start_span)Damage Math[span_14](end_span)
-        dmg = max(10, random.randint(attacker['atk_min'], attacker['atk_max']) + 50 - defender['def'])
-        defender['hp'] -= dmg
-        log = f"⚔️ **{attacker['name']}** used {move_name}!\n💥 Deals {dmg} DMG!"
-        
-        if defender['hp'] <= 0:
-            defender['hp'] = 0
-            await query.edit_message_text(f"🏆 **{attacker['name']}** wins the battle!")
-            del battles[bid]
-            return
-        
-        b['turn'] = "p2" if b['turn'] == "p1" else "p1"
-
-    # [span_15](start_span)UI Update[span_15](end_span)
-    kb = [[InlineKeyboardButton(m, callback_data=f"bmove|{bid}|{m}")] for m in attacker['moves']]
-    # [span_16](start_span)Add Ultimate button if available[span_16](end_span)
-    kb.append([InlineKeyboardButton(f"🌟 {attacker['ult']}", callback_data=f"bmove|{bid}|{attacker['ult']}")])
-    
-    text = (f"👤 **{p1_char['name']}** vs 👤 **{p2_char['name']}**\n\n"
-            f"HP: {p1_char['hp']}/{p1_char['max_hp']} `{get_bar(p1_char['hp'], p1_char['max_hp'])}`\n"
-            f"HP: {p2_char['hp']}/{p2_char['max_hp']} `{get_bar(p2_char['hp'], p2_char['max_hp'])}`\n\n"
-            f"It's **{b[b['turn'] + '_name']}**'s turn!")
-    
-    await query.edit_message_text(text, reply_markup=InlineKeyboardMarkup(kb), parse_mode="Markdown")
-
-async def battle_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def start_battle(update, context, enemy_name, is_boss=False):
     query = update.callback_query
-    data = query.data
+    uid = query.from_user.id
+    # In a full system, you'd pull the player's active team from MongoDB here
+    
+    text = f"⚔️ **Battle Started!**\n\nYou are facing **{enemy_name}**!"
+    
+    # UI Buttons for moves
+    btns = [
+        [InlineKeyboardButton("Strike 👊", callback_data=f"attack_strike_{enemy_name}")],
+        [InlineKeyboardButton("Use Ultimate 🔥", callback_data=f"attack_ult_{enemy_name}")]
+    ]
+    
+    await query.edit_message_caption(caption=text, reply_markup=InlineKeyboardMarkup(btns), parse_mode="Markdown")
 
-    if data.startswith("efight_"):
-        npc = data.split("_")[1]
-        uid = str(query.from_user.id)
-        p = get_player(uid)
-        bid = f"bat_{uid}"
-        battles[bid] = {
-            "p1_id": uid, "p1_name": p['name'], "p1_team": [generate_char_instance("Usopp")], 
-            "p2_name": npc, "p2_team": [generate_char_instance(npc)],
-            "p1_idx": 0, "p2_idx": 0, "turn": "p1"
-        }
-        await run_battle_turn(query, bid)
+async def handle_attack(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    query = update.callback_query
+    _, move_name, enemy = query.data.split("_")
+    
+    # Check if this is a special ultimate with a video animation
+    if move_name == "ult":
+        # Example for Yamato/Kid animations provided in your data
+        if "Yamato" in enemy:
+            video = MEDIA["VIDEOS"]["YAMATO_ULT"]
+            await query.edit_message_media(InputMediaVideo(video, caption="❄️ **YAMATO USES THUNDER BAGUA!**"))
+        elif "Kid" in enemy:
+            video = MEDIA["VIDEOS"]["KID_ULT"]
+            await query.edit_message_media(InputMediaVideo(video, caption="⚡️ **KID USES DAMNED PUNK!**"))
 
-    elif data.startswith("bmove|"):
-        _, bid, move = data.split("|")
-        await run_battle_turn(query, bid, move)
+    # Logic for damage calculation would go here using DATA["MOVES"]
+    dmg = DATA["MOVES"].get(move_name, {"dmg": 30})["dmg"]
+    
+    await query.answer(f"Dealt {dmg} damage to {enemy}!", show_alert=False)
 
 def register(application):
-    application.add_handler(CallbackQueryHandler(battle_handler, pattern="^(efight_|bmove|accept_)"))
+    application.add_handler(CallbackQueryHandler(start_battle, pattern="^efight_|^bfight_"))
+    application.add_handler(CallbackQueryHandler(handle_attack, pattern="^attack_"))
