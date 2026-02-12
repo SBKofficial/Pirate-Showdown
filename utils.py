@@ -2,28 +2,35 @@ import json
 import uuid
 import random
 
-def load_game_data():
-    with open('data/game_data.json', 'r', encoding='utf-8') as f:
+def load_json(path):
+    with open(path, 'r', encoding='utf-8') as f:
         return json.load(f)
 
-def load_media_assets():
-    with open('data/media_assets.json', 'r', encoding='utf-8') as f:
-        return json.load(f)
-
-# Global variables for all plugins to use
-DATA = load_game_data()
-MEDIA = load_media_assets()
+# Global data access
+DATA = load_json('data/game_data.json')
+MEDIA = load_json('data/media_assets.json')
 
 def get_stats_text(char_name):
-    """Pulls text and stats from game_data.json"""
-    c = DATA["CHARACTERS"][char_name]
-    # In a real scenario, you'd use your scaling logic here
-    return (f"👤 **{char_name}**\n🎗 Rarity: {c['rarity']}\n⚔️ Class: {c['class']}\n"
-            f"❤️ HP: {c['hp']}\n💥 Ult: {c['ult']}\n\n"
-            f"📜 _Effect: {DATA['EFFECT_DESCRIPTIONS'].get(char_name, 'No info')}_")
+    """Generates the detailed UI text for a character."""
+    c = DATA["CHARACTERS"].get(char_name)
+    if not c: return "Character not found."
+    
+    # Text UI details provided by user
+    effect = DATA["EFFECT_DESCRIPTIONS"].get(char_name, "No description available.")
+    
+    return (
+        f"👤 **{char_name}**\n"
+        f"🎗 Rarity: {c['rarity']}\n"
+        f"⚔️ Class: {c['class']}\n\n"
+        f"❤️ HP: {c['hp']}\n"
+        f"⚔️ ATK: {c['atk_min']}-{c['atk_max']}\n"
+        f"🛡 DEF: {c['def']}\n"
+        f"⚡️ SPE: {c['spe']}\n\n"
+        f"💥 **ULT: {c['ult']}**\n"
+        f"📜 _Effect: {effect}_"
+    )
 
 def generate_char_instance(name, level=1):
-    """Creates a character object using stats from game_data.json"""
     c = DATA["CHARACTERS"][name]
     return {
         "id": str(uuid.uuid4())[:8],
@@ -31,6 +38,9 @@ def generate_char_instance(name, level=1):
         "level": level,
         "hp": c['hp'],
         "max_hp": c['hp'],
+        "atk_min": c['atk_min'],
+        "atk_max": c['atk_max'],
+        "def": c['def'],
         "moves": list(c['moves']),
         "ult": c['ult']
     }
