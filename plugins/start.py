@@ -5,7 +5,8 @@ from utils import get_stats_text, DATA, MEDIA
 
 async def show_starter_page(update, name, target_user_id):
     text = get_stats_text(name)
-    img = MEDIA["IMAGE_URLS"].get(name, MEDIA["IMAGE_URLS"]["Default"])
+    # Fixed the key from IMAGE_URLS to IMAGES to match your JSON
+    img = MEDIA["IMAGES"].get(name, MEDIA.get("IMAGES", {}).get("Default", ""))
     order = ["Usopp", "Nami", "Helmeppo"]
     if name not in order: name = "Usopp"
     idx = order.index(name)
@@ -32,14 +33,10 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         if referrer_id != str(user_id):
             referrer = load_player(referrer_id)
             if referrer:
-                p['referred_by'] = referrer_id
-                p['berries'] += 5000
-                p['clovers'] += 50
-                referrer['berries'] += 10000
-                referrer['clovers'] += 100
+                p['referred_by'], p['berries'], p['clovers'] = referrer_id, p.get('berries', 0)+5000, p.get('clovers', 0)+50
+                referrer['berries'], referrer['clovers'] = referrer.get('berries',0)+10000, referrer.get('clovers',0)+100
                 referrer['referrals'] = referrer.get('referrals', 0) + 1
-                save_player(user_id, p)
-                save_player(referrer_id, referrer)
+                save_player(user_id, p); save_player(referrer_id, referrer)
                 await update.message.reply_text(f"🤝 Referred by {referrer['name']}! +5,000 🍇, +50 🍀")
 
     if p.get("starter_summoned"):
