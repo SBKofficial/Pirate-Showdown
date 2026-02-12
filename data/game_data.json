@@ -1,0 +1,30 @@
+{
+  "CHARACTERS": {
+    "Alvida": {"rarity": "Common⬜️", "class": "Tank🛡", "hp": 600, "atk_min": 22, "atk_max": 22, "def": 30, "spe": 30, "moves": ["Kanabo smash", "Slip Slip punch"], "ult": "Sube sube no mi"},
+    "Chopper": {"rarity": "Rare🟦", "class": "Healer🧚‍♂", "hp": 700, "atk_min": 30, "atk_max": 35, "def": 40, "spe": 25, "moves": ["Heavy gong", "Kung fu point"], "ult": "Kokutei Roseo Metal"},
+    "Arlong": {"rarity": "Rare🟦", "class": "Damage dealer⚔", "hp": 660, "atk_min": 40, "atk_max": 45, "def": 30, "spe": 35, "moves": ["Shark teeth", "Shark on dart"], "ult": "Kiribachi"},
+    "Koby": {"rarity": "Common⬜️", "class": "Assassin 🥷", "hp": 550, "atk_min": 25, "atk_max": 25, "def": 20, "spe": 35, "moves": ["Kamisoro", "Tempest Kick"], "ult": "Honesty impact"},
+    "Usopp": {"rarity": "Rare🟦", "class": "Healer 🧚‍♂", "hp": 650, "atk_min": 35, "atk_max": 40, "def": 40, "spe": 30, "moves": ["Skull Bomb grass", "Impact wolf"], "ult": "Usopp hammer"},
+    "Buggy": {"rarity": "Rare🟦", "class": "Damage dealer ⚔", "hp": 620, "atk_min": 40, "atk_max": 45, "def": 25, "spe": 35, "moves": ["Chop Chop canon", "Chop Chop buzzsaw"], "ult": "Bara Bara festival"},
+    "Helmeppo": {"rarity": "Rare🟦", "class": "Assassin 🥷", "hp": 680, "atk_min": 35, "atk_max": 35, "def": 30, "spe": 45, "moves": ["Sword swing", "Dual Kukri"], "ult": "Firey morale"},
+    "Nami": {"rarity": "Rare🟦", "class": "Support💪", "hp": 600, "atk_min": 25, "atk_max": 30, "def": 35, "spe": 25, "moves": ["Thunderbolt Tempo", "Swing Arm"], "ult": "Zeus breeze tempo"},
+    "Yamato": {"rarity": "Legendary🟨", "class": "Assassin", "hp": 900, "atk_min": 50, "atk_max": 60, "def": 60, "spe": 50, "moves": ["Namuji Hyoga", "Namuji glacier fang"], "ult": "Thunder Bagua"},
+    "Eustass Kid": {"rarity": "Legendary🟨", "class": "Damage dealer⚔", "hp": 850, "atk_min": 60, "atk_max": 70, "def": 65, "spe": 40, "moves": ["Riperu", "Punk Gibson"], "ult": "Damned Punk"}
+  },
+  "WEAPONS": {
+    "Dual Katana": {"rarity": "⭐️", "atk_range": "35-40", "atk_val": 45, "crit": "10%", "acc": "98%", "spec": "Dual slash", "lvl": 1, "cost": 10000, "img": "AgACAgUAAyEFAATl0UgqAAIZt2mEOqRXXmoQl-ulHSOIrVWLQjzoAAJUFmsbMx4hVLLn3TFeaW8CAQADAgADeAADOAQ"},
+    "Triple Katana": {"rarity": "⭐️", "atk_range": "45-50", "atk_val": 55, "crit": "10%", "acc": "98%", "spec": "Triple Tornado", "lvl": 1, "cost": 20000, "img": "AgACAgUAAyEFAATl0UgqAAIZuWmEOqlKixV19PQIvi96-GuoPHIKAAJWFmsbMx4hVHbg-8QGvEdRAQADAgADeAADOAQ"},
+    "Shark Saw": {"rarity": "⭐️", "atk_range": "50-55", "atk_val": 60, "crit": "15%", "acc": "98%", "spec": "Shark resonance", "lvl": 1, "cost": 25000, "img": "AgACAgUAAyEFAATl0UgqAAIZu2mEOq10xpnpB49zbKaEg-j40GqKAAJXFmsbMx4hVFAid74FSZU-AQADAgADeAADOAQ"},
+    "Green Blade": {"rarity": "⭐️", "atk_range": "60-70", "atk_val": 75, "crit": "25%", "acc": "98%", "spec": "Green slash", "lvl": 5, "cost": 45000, "img": "AgACAgUAAyEFAATl0UgqAAIZw2mEOrMJjjEtehNfXfiSBoJxMCBiAAJYFmsbMx4hVIch9ahbbQQMAQADAgADeQADOAQ"},
+    "Magma Dagger": {"rarity": "⭐️", "atk_range": "80-90", "atk_val": 100, "crit": "25%", "acc": "95%", "spec": "Magma Force", "lvl": 15, "cost": 65000, "img": "AgACAgUAAyEFAATl0UgqAAIZ7WmEOry82XEfPl1oUYc0_KU4djqAAAJZFmsbMx4hVGmQ1rgUOcjsAQADAgADeQADOAQ"},
+    "Azure Needle": {"rarity": "⭐️⭐️", "atk_range": "100-110", "atk_val": 125, "crit": "30%", "acc": "95%", "spec": "Azure Counter", "lvl": 30, "cost": 70000, "img": "AgACAgUAAyEFAATl0UgqAAIaAAFphDzjTunksxUIOZYWj3FlV9BURwACWhZrGzMeIVQ0u2UqGs_0JgEAAwIAA3kAAzgE"},
+    "Forest Blade": {"rarity": "⭐️⭐️", "atk_range": "130-150", "atk_val": 160, "crit": "35%", "acc": "95%", "spec": "Forest god slash", "lvl": 30, "cost": 85000, "img": "AgACAgUAAyEFAATl0UgqAAIaFWmEPQJkm-U2-AlHDexL0Ke8vLYpAAJcFmsbMx4hVCdm7R62bN3iAQADAgADeQADOAQ"}
+  },
+  "DEVIL_FRUITS": {
+    "Sand Sand Fruit": {"atk_buff": 20, "def_buff": 35, "hp_buff": 0, "cost": 15000, "lvl": 7, "img": "AgACAgUAAyEFAATl0UgqAAIdCGmEyAP0N7D46htpr52YyW4gk59hAAIuEmsbMx4pVO7ttlPyKjeNAQADAgADeQADOAQ"},
+    "Shadow Shadow Fruit": {"atk_buff": 31, "def_buff": 17, "hp_buff": 0, "cost": 15000, "lvl": 4, "img": "AgACAgUAAyEFAATl0UgqAAIdFWmE7Liugh6UWYR8q5tA_sHCPNsdAAIvEmsbMx4pVEpP7t_9_F97AQADAgADeAADOAQ"},
+    "Barrier Barrier Fruit": {"atk_buff": 7, "def_buff": 30, "hp_buff": 0, "cost": 10000, "lvl": 1, "img": "AgACAgUAAyEFAATl0UgqAAIeemmE7IhCyP3Xv5z0MWur0XyybbDSAAJxEmsbMx4pVCqTaJaSZ0K8AQADAgADeQADOAQ"},
+    "Munch Munch Fruit": {"atk_buff": 17, "def_buff": 0, "hp_buff": 35, "cost": 10000, "lvl": 1, "img": "AgACAgUAAyEFAATl0UgqAAIemWmE90tMDiO7XXEHktwrz9tFu_V9AALLEmsbMx4pVCKf_jfVPhlrAQADAgADeQADOAQ"},
+    "Gum Gum Fruit": {"atk_buff": 27, "def_buff": 15, "hp_buff": 0, "cost": 10000, "lvl": 1, "img": "AgACAgUAAyEFAATl0UgqAAIecmmE7I5fGowjyIYU7_df7Dwxf1UyAAJkEmsbMx4pVHs0wiHNY7NzAQADAgADeQADOAQ"}
+  }
+}
