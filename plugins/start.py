@@ -1,12 +1,29 @@
+import logging
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, InputMediaPhoto
-from telegram.ext import CommandHandler, CallbackQueryHandler, ContextTypes
+from telegram.ext import CommandHandler, CallbackQueryHandler, MessageHandler, filters, ContextTypes
 from database import get_player, load_player, save_player
-from utils import get_stats_text, DATA, MEDIA
+from utils import get_stats_text, DATA, MEDIA, generate_char_instance
 
+logger = logging.getLogger(__name__)
+
+# =====================
+# ID CATCHER LOGIC
+# =====================
+async def catch_id(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    """Replies with the File ID of any photo or video sent to the bot."""
+    if update.message.photo:
+        file_id = update.message.photo[-1].file_id
+        await update.message.reply_text(f"📸 **Photo File ID:**\n<code>{file_id}</code>", parse_mode="HTML")
+    elif update.message.video:
+        file_id = update.message.video.file_id
+        await update.message.reply_text(f"🎥 **Video File ID:**\n<code>{file_id}</code>", parse_mode="HTML")
+
+# =====================
+# STARTER MENU LOGIC
+# =====================
 async def show_starter_page(update, name, target_user_id):
-    """Displays the pirate selection carousel."""
+    """Handles the selection carousel."""
     text = get_stats_text(name)
-    # Corrected key: IMAGES (matches your Media_assets.json)
     img = MEDIA["IMAGES"].get(name, MEDIA["IMAGES"].get("Default"))
     
     order = ["Usopp", "Nami", "Helmeppo"]
@@ -20,23 +37,57 @@ async def show_starter_page(update, name, target_user_id):
     btns.append(nav)
     markup = InlineKeyboardMarkup(btns)
 
-    if update.callback_query:
-        await update.callback_query.edit_message_media(InputMediaPhoto(img, caption=text), reply_markup=markup)
-    else:
-        await update.message.reply_photo(img, caption=text, reply_markup=markup)
+    try:
+        if update.callback_query:
+            if img:
+                await update.callback_query.edit_message_media(InputMediaPhoto(img, caption=text), reply_markup=markup)
+            else:
+                await update.callback_query.edit_message_text(text, reply_markup=markup)
+        else:
+            if img:
+                await update.message.reply_photo(img, caption=text, reply_markup=markup)
+            else:
+                await update.message.reply_text(text, reply_markup=markup)
+    except Exception as e:
+        logger.error(f"Image error for {name}: {e}")
+        if update.message: await update.message.reply_text(f"{text}\n\n⚠️ Image failed.", reply_markup=markup)
+
+# =====================
+# CHOICE & REFERRAL LOGIC
+# =====================
+async def choose_starter(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    """Saves the chosen pirate to the database."""
+    query = update.callback_query
+    _, name, uid = query.data.split("_")
+    
+    p = get_player(uid)
+    if p.get("starter_summoned"):
+        await query.answer("You already have a starter!", show_alert=True)
+        return
+
+    starter_char = generate_char_instance(name, level=1)
+    p["characters"] = [starter_char]
+    p["team"] = [starter_char]
+    p["starter_summoned"] = True
+    save_player(uid, p)
+
+    await query.edit_message_caption(
+        caption=f"🏴‍☠️ **Excellent choice, Captain!**\n\n{name} has joined your crew. Use /explore to begin!",
+        parse_mode="Markdown"
+    )
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = update.effective_user.id
     p = get_player(user_id, update.effective_user.first_name)
 
-    # Referral Logic
+    # [span_0](start_span)Referral system: 10k Berries for the recruiter[span_0](end_span)
     if context.args and not load_player(user_id) and not p.get('referred_by'):
         ref_id = str(context.args[0])
         if ref_id != str(user_id):
             referrer = get_player(ref_id)
             p['referred_by'] = ref_id
-            p['berries'] += 5000
-            referrer['berries'] += 10000
+            p['berries'] = p.get('berries', 0) + 5000
+            referrer['berries'] = referrer.get('berries', 0) + 10000
             save_player(user_id, p)
             save_player(ref_id, referrer)
 
@@ -49,3 +100,5 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 def register(application):
     application.add_handler(CommandHandler("start", start))
     application.add_handler(CallbackQueryHandler(start, pattern="^start_"))
+    application.add_handler(CallbackQueryHandler(choose_starter, pattern="^choose_"))
+    application.add_handler(MessageHandler(filters.PHOTO | filters.VIDEO, catch_id))
