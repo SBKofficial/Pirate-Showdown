@@ -1,0 +1,28 @@
+# Environment Variables (CRITICAL: Never commit these)
+.env
+env.txt
+*.env
+
+# Python specific
+__pycache__/
+*.py[cod]
+*$py.class
+.venv
+venv/
+ENV/
+
+# Database / Local Storage
+*.db
+*.sqlite3
+
+# OS specific
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+*.log
